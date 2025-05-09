@@ -1,0 +1,30 @@
+FetchType        FetchMode          Result
+LAZY             SELECT             Asked For Products - Queries - 2 select
+                                    Not Asked For Products - Queries - 1 select
+
+EAGER            SELECT             Asked For Products - Queries - 2 select
+                                    Not Asked For Products - Queries - 2 select
+
+LAZY             JOIN               Asked For Products - Queries - 1 join
+                                    Not Asked For Products - Queries - 1 join
+
+EAGER            JOIN               Asked For Products - Queries - 1 join
+                                    Not Asked For Products - Queries - 1 join
+
+LAZY             SUBSELECT           Asked For Products - Queries - 2 select
+                                     Not Asked For Products - Queries - 1 select
+
+EAGER            SUBSELECT          Asked For Products - Queries - 2 select
+                                    Not Asked For Products - Queries - 2 select
+
+-> FetchMode JOIN will be dominant over any case (be it any fetch-type , whether you ask for child entities or not)
+
+-> FetchMode SELECT and SUBSELECT will actually honor FetchType - LAZY/EAGER
+
+https://hackernoon.com/3-ways-to-deal-with-hibernate-n1-problem
+
+https://dheerajgopinath.medium.com/the-issue-with-fetchmode-subselect-and-onetomany-mappings-in-hibernate-and-jpa-f79724068897
+
+https://itecnote.com/tecnote/hibernate-subselect-vs-batch-fetching/
+
+https://www.baeldung.com/hibernate-fetchmode
