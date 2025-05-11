@@ -47,8 +47,11 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable("id") Long productId) {
 
-            if(productId <= 0){
+            if(productId < 0){
                 throw new IllegalArgumentException("Product is invalid");
+            }
+            else if(productId == 0){
+                throw new IllegalArgumentException("Product with id 0 not accessible");
             }
             Product product = productService.getProductById(productId);
             MultiValueMap headers = new LinkedMultiValueMap();
