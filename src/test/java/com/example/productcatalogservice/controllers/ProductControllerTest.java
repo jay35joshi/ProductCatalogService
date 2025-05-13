@@ -4,6 +4,8 @@ import com.example.productcatalogservice.dtos.ProductDto;
 import com.example.productcatalogservice.models.Product;
 import com.example.productcatalogservice.services.IProductService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,9 @@ class ProductControllerTest {
     @MockBean
     @Qualifier("sps")
     private IProductService productService;
+
+    @Captor
+    private ArgumentCaptor<Long> idCaptor;
 
     @Test
     public void TestGetProductById_WithValidId_RunSuccessfully() {
@@ -71,6 +76,27 @@ class ProductControllerTest {
 
         //act and assert
         assertThrows(RuntimeException.class, () -> productController.getProductById(101L));
+    }
+
+    //Argument captures
+    @Test
+    public void TestGetProductById_ProductServiceCalledWithCorrectArguments_RunSuccessfully() {
+
+        //Arrange
+        Long productId = 1L;
+        Product product = new Product();
+        product.setId(productId);
+        product.setName("Test");
+
+        when(productService.getProductById(productId)).thenReturn(product);
+
+        //Act
+        ResponseEntity<ProductDto> productDtoResponseEntity=  productController.getProductById(productId);
+
+        //assert
+        verify(productService).getProductById(idCaptor.capture());
+        assertEquals(productId, idCaptor.getValue());
+
     }
 
 }
