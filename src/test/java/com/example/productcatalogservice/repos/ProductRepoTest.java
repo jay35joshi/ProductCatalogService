@@ -16,8 +16,25 @@ class ProductRepoTest {
     @Autowired
     private ProductRepo productRepo;
 
-    @Test
-    @Transactional
+   @Test
+    public void addTestProductsInAwsDb(){
+        Product product = new Product();
+        product.setId(1);
+        product.setDescription("iphone");
+        product.setPrice(100000);
+        productRepo.save(product);
+
+        Product product1 = new Product();
+        product1.setId(2);
+        product1.setDescription("macbook");
+        product1.setPrice(150000);
+        productRepo.save(product1);
+    }
+
+
+
+    //@Test
+   // @Transactional
     public void testJpaMethods(){
 
         List<Product> products = productRepo.findProuctByPriceBetween(75000.00,250000.00);

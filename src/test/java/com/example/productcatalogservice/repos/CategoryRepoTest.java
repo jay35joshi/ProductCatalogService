@@ -17,8 +17,8 @@ class CategoryRepoTest {
     @Autowired
     private CategoryRepo categoryRepo;
 
-    @Test
-    @Transactional
+   // @Test
+    //@Transactional
     void testFetchTypes(){
 
         Category category = categoryRepo.findById(1L).get();

@@ -54,7 +54,7 @@ public class ProductController {
                 throw new IllegalArgumentException("Product with id 0 not accessible");
             }
             //Added to understand argmentcaptor
-            productId--;
+            //productId--;
             Product product = productService.getProductById(productId);
             MultiValueMap headers = new LinkedMultiValueMap();
             if (product == null) {
